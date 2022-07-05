@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container">
+        <div class="row"><div class="col-sm-12"><br></div> </div>
+            <div class="row">
+            <div class="col-sm-4"><br></div> 
+                <div class="col-sm-4">
+                    <form action="LoginServlet" method="post"> 
+                        <div>
+                            <label class="form-groupl" for="inputLogin">Login</label>
+                            <input type="text" name="login" required class="form-control" id="inputLogin" placeholder="Login" /> <br/> 
+                        </div>      
+                       <div>
+                            <label class="form-group" for="inputSenha">Senha</label>       
+                            <input type="password" name="senha" autocomplete="current-password" required class="form-control" id="inputSenha" placeholder="Senha"/> <br/>
+                        </div>
+                        <button type ="submit" class="btn btn-primary">Logar</button> 
+                    </form>
+                </div>
+            <div class="col-sm-4"><br></div> 
+            </div>
+        </div>
+    </body>
+</html>
