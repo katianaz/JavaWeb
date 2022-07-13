@@ -1,2 +1,6 @@
 *.zip
 *.rar
+/Exercicio2/build/
+/Exercicio2/dist/
+/Exercicio3/build/
+/Exercicio3/dist/

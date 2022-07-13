@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Servlets;
 
-import Classes.Usuario;
+import Model.Bean.Usuario;
+import Model.DAO.UsuarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +10,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import static java.lang.System.out;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,17 +25,27 @@ public class CadastrarUsuarioServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String nome = request.getParameter("nome");
-        String login = request.getParameter("login");
-        String senha = request.getParameter("senha");
+        response.setContentType("text/html;charset=UTF-8");
         
         Usuario usuario = new Usuario();
-        usuario.setNome(request.getParameter("nome"));
-        usuario.setLogin(request.getParameter("login"));
-        usuario.setSenha(request.getParameter("senha"));
+        UsuarioDAO usuarioDAO = null;
+        try {
+            usuarioDAO = new UsuarioDAO();
+        } catch (SQLException ex) {
+            Logger.getLogger(CadastrarUsuarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        response.setContentType("text/html;charset=UTF-8");
+        usuario.setNome_usuario(request.getParameter("nome"));
+        usuario.setLogin_usuario(request.getParameter("login"));
+        usuario.setSenha_usuario(request.getParameter("senha"));
+        
+        try {
+            usuarioDAO.save(usuario);
+        } catch (SQLException ex) {
+            Logger.getLogger(CadastrarUsuarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
         PrintWriter out = response.getWriter();         
         out.println("<!DOCTYPE html>");
         out.println("<html>");
@@ -47,7 +57,7 @@ public class CadastrarUsuarioServlet extends HttpServlet {
         
         out.println("<div class='container'>" + 
                     "<header class=\"text-center\">"); 
-        out.println("<br><p>Usuário " + usuario.getNome() + " cadastrado com sucesso!</p><br>");            
+        out.println("<br><p>Usuário " + usuario.getNome_usuario() + " cadastrado com sucesso!</p><br>");            
         out.println("<a href=\"PortalServlet\">Portal</a>");      
        
         out.println("</header>");  
@@ -56,11 +66,7 @@ public class CadastrarUsuarioServlet extends HttpServlet {
         out.println("</html>");   
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+   
     @Override
     public String getServletInfo() {
         return "Short description";
